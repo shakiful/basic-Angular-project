@@ -2,6 +2,7 @@ import { ShoppingListService } from './../shopping-list/shopping-list.service';
 import { Injectable, OnInit } from '@angular/core';
 import { recipe } from './recipe.model';
 import { Ingredients } from '../shared/ingredients.model';
+import { Subject } from 'rxjs';
 
 @Injectable()
 export class RecipeService implements OnInit {
@@ -9,7 +10,7 @@ export class RecipeService implements OnInit {
 
   ngOnInit(): void {}
 
-
+  recipeChanged = new Subject<recipe[]>();
   recipe: recipe;
 
   recipes: recipe[] = [
@@ -38,4 +39,18 @@ export class RecipeService implements OnInit {
   addIngredientsToShoppingList(ingredients: Ingredients[]) {
     this.shoppingListService.addIngredients(ingredients);
   }
+
+  addRecipe(recipe: recipe) {
+    this.recipes.push(recipe);
+    this.recipeChanged.next(this.recipes.slice());
+  }
+  updateRecipe(index: number, newRecipe: recipe){
+    this.recipes[index] = newRecipe;
+  }
+
+  deleteRecipe(index:number){
+    this.recipes.splice(index, 1);
+    this.recipeChanged.next(this.recipes.slice());
+  }
+
 }

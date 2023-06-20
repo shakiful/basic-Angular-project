@@ -18,7 +18,7 @@ import { RecipeEditComponent } from './recipe/recipe-edit/recipe-edit.component'
 import { MemberAuthGuard } from './isAdmin.guard';
 import { PlatinumMemberAuthGuard } from './isPlatinumMember.guard';
 import { SuperAdminGuard } from './isSuper.guard';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -37,6 +37,7 @@ import { FormsModule } from '@angular/forms';
   imports: [
     BrowserModule,
     AppRoutingModule,
+    ReactiveFormsModule,
     FormsModule,
   ],
   providers: [RecipeService,ShoppingListService, MemberAuthGuard, PlatinumMemberAuthGuard, SuperAdminGuard],
