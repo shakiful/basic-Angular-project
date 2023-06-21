@@ -8,6 +8,7 @@ import { RecipeEditComponent } from './recipe/recipe-edit/recipe-edit.component'
 import { MemberAuthGuard } from './isAdmin.guard';
 import { PlatinumMemberAuthGuard } from './isPlatinumMember.guard';
 import { SuperAdminGuard } from './isSuper.guard';
+import { RecipesResolverService } from './recipe/recipe-resolver.service';
 
 const routes: Routes = [
   { path: '', redirectTo: '/recipe', pathMatch: 'full' },
@@ -29,11 +30,13 @@ const routes: Routes = [
       {
         path: ':id',
         component: RecipeDetailComponent,
+        resolve: [RecipesResolverService],
       },
 
       {
         path: ':id/edit',
         component: RecipeEditComponent,
+        resolve: [RecipesResolverService],
       },
     ],
   },

@@ -13,20 +13,27 @@ export class RecipeService implements OnInit {
   recipeChanged = new Subject<recipe[]>();
   recipe: recipe;
 
-  recipes: recipe[] = [
-    new recipe(
-      'Salad',
-      'this is a test recipe',
-      'https://www.howtocook.recipes/wp-content/uploads/2021/05/Ratatouille-recipe-500x500.jpg',
-      [new Ingredients('meat', 1), new Ingredients('french fries', 20)]
-    ),
-    new recipe(
-      'Salad 2',
-      'this is a test recipe 2',
-      'https://www.howtocook.recipes/wp-content/uploads/2021/05/Ratatouille-recipe-500x500.jpg',
-      [new Ingredients('buns', 2), new Ingredients('Meat', 1)]
-    ),
-  ];
+  // recipes: recipe[] = [
+  //   new recipe(
+  //     'Salad',
+  //     'this is a test recipe',
+  //     'https://www.howtocook.recipes/wp-content/uploads/2021/05/Ratatouille-recipe-500x500.jpg',
+  //     [new Ingredients('meat', 1), new Ingredients('french fries', 20)]
+  //   ),
+  //   new recipe(
+  //     'Salad 2',
+  //     'this is a test recipe 2',
+  //     'https://www.howtocook.recipes/wp-content/uploads/2021/05/Ratatouille-recipe-500x500.jpg',
+  //     [new Ingredients('buns', 2), new Ingredients('Meat', 1)]
+  //   ),
+  // ];
+
+  private recipes: recipe[] = [];
+
+  setRecipes(recipes: recipe[]) {
+    this.recipes = recipes;
+    this.recipeChanged.next(this.recipes.slice());
+  }
 
   getRecipes() {
     return this.recipes.slice();
@@ -44,13 +51,12 @@ export class RecipeService implements OnInit {
     this.recipes.push(recipe);
     this.recipeChanged.next(this.recipes.slice());
   }
-  updateRecipe(index: number, newRecipe: recipe){
+  updateRecipe(index: number, newRecipe: recipe) {
     this.recipes[index] = newRecipe;
   }
 
-  deleteRecipe(index:number){
+  deleteRecipe(index: number) {
     this.recipes.splice(index, 1);
     this.recipeChanged.next(this.recipes.slice());
   }
-
 }
