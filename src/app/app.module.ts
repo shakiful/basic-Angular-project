@@ -1,4 +1,4 @@
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
@@ -22,6 +22,7 @@ import { SuperAdminGuard } from './isSuper.guard';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AuthComponent } from './auth/auth.component';
 import { LoadingSpinnerComponent } from './shared/loading-spinner/loading-spinner.component';
+import { AuthInterceptorService } from './auth/auth-interceptor';
 
 @NgModule({
   declarations: [
@@ -46,7 +47,7 @@ import { LoadingSpinnerComponent } from './shared/loading-spinner/loading-spinne
     FormsModule,
     HttpClientModule
   ],
-  providers: [RecipeService,ShoppingListService, MemberAuthGuard, PlatinumMemberAuthGuard, SuperAdminGuard],
+  providers: [RecipeService,ShoppingListService, MemberAuthGuard, PlatinumMemberAuthGuard, SuperAdminGuard, {provide: HTTP_INTERCEPTORS, useClass:AuthInterceptorService, multi:true}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

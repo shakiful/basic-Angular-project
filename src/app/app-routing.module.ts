@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { RouterModule, Routes} from '@angular/router';
 import { ShoppingListComponent } from './shopping-list/shopping-list.component';
 import { RecipeComponent } from './recipe/recipe.component';
 import { RecipeStartComponent } from './recipe/recipe-start/recipe-start.component';
@@ -10,12 +10,14 @@ import { PlatinumMemberAuthGuard } from './isPlatinumMember.guard';
 import { SuperAdminGuard } from './isSuper.guard';
 import { RecipesResolverService } from './recipe/recipe-resolver.service';
 import { AuthComponent } from './auth/auth.component';
+import { authGuardFn } from './auth/auth-guard';
 
 const routes: Routes = [
   { path: '', redirectTo: '/recipe', pathMatch: 'full' },
   {
     path: 'recipe',
     component: RecipeComponent,
+    canActivate: [authGuardFn],
     // canActivate: [MemberAuthGuard, PlatinumMemberAuthGuard],
     // canActivateChild: [SuperAdminGuard],
     // canDeactivate: [() => true],
