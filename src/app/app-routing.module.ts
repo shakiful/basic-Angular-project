@@ -9,6 +9,7 @@ import { MemberAuthGuard } from './isAdmin.guard';
 import { PlatinumMemberAuthGuard } from './isPlatinumMember.guard';
 import { SuperAdminGuard } from './isSuper.guard';
 import { RecipesResolverService } from './recipe/recipe-resolver.service';
+import { AuthComponent } from './auth/auth.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/recipe', pathMatch: 'full' },
@@ -41,6 +42,7 @@ const routes: Routes = [
     ],
   },
   { path: 'shopping-list', component: ShoppingListComponent },
+  {path: 'auth', component: AuthComponent},
   { path: 'not-found', component: ShoppingListComponent },
   { path: '**', redirectTo: 'not-found' },
 ];

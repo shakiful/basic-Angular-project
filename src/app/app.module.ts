@@ -20,6 +20,8 @@ import { MemberAuthGuard } from './isAdmin.guard';
 import { PlatinumMemberAuthGuard } from './isPlatinumMember.guard';
 import { SuperAdminGuard } from './isSuper.guard';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { AuthComponent } from './auth/auth.component';
+import { LoadingSpinnerComponent } from './shared/loading-spinner/loading-spinner.component';
 
 @NgModule({
   declarations: [
@@ -34,6 +36,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     DropdownDirectiveTsDirective,
     RecipeStartComponent,
     RecipeEditComponent,
+    AuthComponent,
+    LoadingSpinnerComponent,
   ],
   imports: [
     BrowserModule,

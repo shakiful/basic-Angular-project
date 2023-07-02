@@ -48,7 +48,8 @@ export class RecipeService implements OnInit {
   }
 
   addRecipe(recipe: recipe) {
-    this.recipes.push(recipe);
+    console.log(this.recipes.push(recipe),"add");
+    // this.recipes.push(recipe);
     this.recipeChanged.next(this.recipes.slice());
   }
   updateRecipe(index: number, newRecipe: recipe) {
