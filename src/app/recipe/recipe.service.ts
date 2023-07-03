@@ -4,7 +4,9 @@ import { recipe } from './recipe.model';
 import { Ingredients } from '../shared/ingredients.model';
 import { Subject } from 'rxjs';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root',
+})
 export class RecipeService implements OnInit {
   constructor(private shoppingListService: ShoppingListService) {}
 
@@ -48,7 +50,7 @@ export class RecipeService implements OnInit {
   }
 
   addRecipe(recipe: recipe) {
-    console.log(this.recipes.push(recipe),"add");
+    console.log(this.recipes.push(recipe), 'add');
     // this.recipes.push(recipe);
     this.recipeChanged.next(this.recipes.slice());
   }
