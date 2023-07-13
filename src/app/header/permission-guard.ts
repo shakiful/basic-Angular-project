@@ -6,10 +6,10 @@ import {
   RouterStateSnapshot,
   UrlTree,
 } from '@angular/router';
-import { AuthService } from './auth.service';
+import { AuthService } from '../auth/auth.service';
 import { Observable, map, take } from 'rxjs';
 
-export const authGuardFn: CanActivateFn = (
+export const PermissionGuardFn: CanActivateFn = (
   route: ActivatedRouteSnapshot,
   state: RouterStateSnapshot
 ): Observable<boolean | UrlTree> => {
@@ -17,11 +17,10 @@ export const authGuardFn: CanActivateFn = (
   const authService = inject(AuthService);
   return authService.user.pipe(
     map((user) => {
-      const isAuth = !!user;
-      if (isAuth) {
-        return true;
+      if (user && user.role.toString() === 'viewer') {
+        return router.createUrlTree(['/recipe']);
       }
-      return router.createUrlTree(['/auth']);
+      return true;
     })
   );
 };

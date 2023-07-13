@@ -21,10 +21,20 @@
         <li routerLinkActive="active" *ngIf="isAuthenticated"><a routerLink="recipe">Recipes</a></li>
         <li routerLinkActive="active" *ngIf="!isAuthenticated"><a routerLink="auth">Authenticate</a></li>
         <li routerLinkActive="active"><a routerLink="shopping-list">Shopping List</a></li>
+        <li routerLinkActive="active" *ngIf="isAuthenticated"><a routerLink="weather">Weather</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li *ngIf="isAuthenticated">
           <a style="cursor: pointer;" (click)="onLogout()">Logout</a>
+        </li>
+        <li *ngIf="isAuthenticated && ((access == 'admin')|| (access == 'user')|| (access == 'super'))">
+          <a style="cursor: pointer;" (click)="onSettings()">Edit Info</a>
+        </li>
+        <li *ngIf="isAuthenticated && (access == 'super')" >
+          <a style="cursor: pointer;" (click)="onDelete()">Delete Account</a>
+        </li>
+        <li *ngIf="isAuthenticated && (access == 'super')">
+          <a style="cursor: pointer;" (click)="onRetrieveUsers()">User Infos</a>
         </li>
         <li class="dropdown" appDropdownDirectiveTs *ngIf="isAuthenticated">
           <a style="cursor: pointer;" class="dropdown-toggle" role="button"

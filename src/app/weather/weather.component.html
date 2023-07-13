@@ -1,0 +1,38 @@
+<table>
+  <thead>
+    <tr>
+      <th>Weather Type</th>
+      <th>Icon</th>
+      <th>Temperature</th>
+      <th>Feels Like</th>
+      <th>Min Temp</th>
+      <th>Max Temp</th>
+      <th>Pressure</th>
+      <th>Humidity</th>
+      <th>Visibility</th>
+      <th>Wind Speed</th>
+      <th>Wind Degree</th>
+      <th>Clouds</th>
+      <th>Date</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let weather of weatherData | slice: (currentPage - 1) * itemsPerPage : currentPage * itemsPerPage">
+      <td>{{ weather.weatherType }}</td>
+      <td><img [src]="weather.icon" [alt]="weather.weatherType"></td>
+      <td>{{ weather.temp }}</td>
+      <td>{{ weather.feelsLike }}</td>
+      <td>{{ weather.tempMin }}</td>
+      <td>{{ weather.tempMax }}</td>
+      <td>{{ weather.pressure }}</td>
+      <td>{{ weather.humidity }}</td>
+      <td>{{ weather.visibility }}</td>
+      <td>{{ weather.windSpeed }}</td>
+      <td>{{ weather.windDeg }}</td>
+      <td>{{ weather.clouds }}</td>
+      <td>{{ weather.dt }}</td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- <pagination-controls (pageChange)="currentPage = $event"></pagination-controls> -->

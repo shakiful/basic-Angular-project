@@ -3,6 +3,8 @@ import { NgForm } from '@angular/forms';
 import { AuthResponseData, AuthService } from './auth.service';
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
+import { UserRoles } from './user.enum.model';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-auth',
@@ -12,9 +14,17 @@ import { Router } from '@angular/router';
 export class AuthComponent {
   isLogInMode = true;
   isLoading = false;
-  error: string = null;
+  error = false;
 
-  constructor(private authService: AuthService, private router: Router) {}
+  roleArray = Object.keys(UserRoles)
+    .map((key) => UserRoles[key])
+    .filter((key) => isNaN(Number(key)));
+
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+    private toastr: ToastrService
+  ) {}
 
   onSwitchMode() {
     this.isLogInMode = !this.isLogInMode;
@@ -24,35 +34,44 @@ export class AuthComponent {
     if (!form.valid) {
       return;
     }
+    const username = form.value.username;
+    const role = form.value.role;
     const email = form.value.email;
     const password = form.value.password;
 
     let authObs: Observable<AuthResponseData>;
-
     this.isLoading = true;
     if (this.isLogInMode) {
-      authObs = this.authService.login(email, password)
+      authObs = this.authService.login(username, password);
     } else {
-      authObs = this.authService.signup(email, password);
+      authObs = this.authService.signup(username, email, password, role);
     }
 
     authObs.subscribe({
       next: (data) => {
         console.log(data);
         this.isLoading = false;
-        this.router.navigate(['/recipe'])
+        this.router.navigate(['/recipe']);
+        if (this.error == false) {
+          if (this.isLogInMode) {
+            this.toastr.success('Successfully Logged in');
+          } else {
+            this.toastr.success('Successfully Signed Up');
+          }
+        }
+
       },
       error: (errorMessage) => {
         console.log(errorMessage);
-        this.error = errorMessage;
+        this.toastr.error(errorMessage);
+        this.error = true;
         this.isLoading = false;
       },
     });
 
-    form.reset();
-  }
 
-  onHandleError(){
-    this.error = null;
+    console.log(this.error);
+
+    form.reset();
   }
 }
